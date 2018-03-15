@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.user.dao.UserMapper" >
-    <resultMap id="UserResultMap" type="com.example.user.po.User" >
+    <resultMap id="user" type="com.example.user.po.User" >
         <id column="id" property="id" jdbcType="INTEGER" />
         <result column="name" property="name" jdbcType="VARCHAR" />
         <result column="login_name" property="login" jdbcType="VARCHAR" />
@@ -11,13 +11,13 @@
     </resultMap>
 
     <insert id="insert" parameterType="com.example.user.po.User" useGeneratedKeys="true" keyProperty="id">
-        insert into sys_user (
+        INSERT INTO sys_user (
           org_id,
           name,
           login_name,
           password,
           job_number,
-          user_type,
+          utype,
           photo,
           email,
           mobile,
@@ -25,14 +25,15 @@
           create_time,
           create_by,
           del_flag,
-          remarks)
-        values (
+          remarks,
+          status)
+        VALUES (
           #{orgID},
           #{name},
           #{login},
           #{password},
           #{jobNumber},
-          #{userType},
+          #{utype},
           #{photo},
           #{email},
           #{mobile},
@@ -40,6 +41,37 @@
           #{createTime},
           #{createBy},
           #{deleteFlag},
-          #{remarks})
+          #{remarks},
+          #{status})
     </insert>
+
+    <select id="get" resultMap="user" parameterType="int">
+        SELECT * FROM sys_user
+        WHERE
+          id = #{id}
+    </select>
+
+    <select id="getUserByName" resultMap="user" parameterType="java.lang.String">
+        SELECT * FROM sys_user
+        WHERE
+          login_name = #{name}
+    </select>
+
+    <!-- set user del_flag to true -->
+    <update id="delete">
+        UPDATE sys_user
+        SET del_flag = 'T'
+        WHERE
+            id = #{id}
+    </update>
+
+    <!-- change user password -->
+    <update id="changeLoginPwd">
+        UPDATE
+          sys_user
+        SET
+          password = #{password}
+        WHERE
+          id = #{id}
+    </update>
 </mapper>

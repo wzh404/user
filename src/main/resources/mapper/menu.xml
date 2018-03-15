@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.user.dao.MenuMapper" >
+    <insert id="insert" parameterType="com.example.user.po.Menu" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO sys_menu(
+            name,
+            pid,
+            url,
+            icon,
+            code,
+            mtype,
+            create_by,
+            create_time,
+            del_flag,
+            remarks
+        )VALUES(
+            #{name},
+            #{pid},
+            #{url},
+            #{icon},
+            #{mtype},
+            #{createBy},
+            #{createTime},
+            #{deleteFlag},
+            #{remarks}
+        )
+    </insert>
+
+
+</mapper>
