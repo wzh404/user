@@ -1,7 +1,10 @@
 package com.example.user.service;
 
 import com.example.user.po.User;
+import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * Created by wangzunhui on 2018/3/13.
@@ -48,4 +51,30 @@ public interface UserService {
      * @return 1 success, other failed.
      */
     public int changeLoginPwd(Integer id, String newPwd, String oldPwd);
+
+    /**
+     * get user all permissions by id.
+     *
+     * @param id user id.
+     * @return
+     */
+    List<String> permissions(int id);
+
+    /**
+     * add user roles.
+     *
+     * @param id
+     * @param roles
+     * @return
+     */
+    int addRoles(int id,  List<Integer> roles);
+
+    /**
+     * paging query user.
+     *
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    Page<User> findByPage(int page, int pageSize);
 }

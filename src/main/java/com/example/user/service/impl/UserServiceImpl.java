@@ -3,8 +3,13 @@ package com.example.user.service.impl;
 import com.example.user.dao.UserMapper;
 import com.example.user.po.User;
 import com.example.user.service.UserService;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by @author wangzunhui on 2018/3/13.
@@ -46,5 +51,23 @@ public class UserServiceImpl implements UserService{
         }
 
         return userMapper.changeLoginPwd(id, newPwd);
+    }
+
+    @Override
+    public List<String> permissions(int id) {
+        return userMapper.permissions(id).stream()
+                .map(m -> m.get("url").toString())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public int addRoles(int id, List<Integer> roles) {
+        return userMapper.addRoles(id, roles);
+    }
+
+    @Override
+    public Page<User> findByPage(int page, int pageSize) {
+        PageHelper.startPage(page, pageSize);
+        return userMapper.findByPage();
     }
 }

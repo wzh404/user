@@ -1,10 +1,15 @@
 package com.example.user.common;
 
+import java.util.Arrays;
+
 /**
  * Created by @author wangzunhui on 2018/3/15.
  */
 public enum UserStatus {
-    NORMAL("NORMAL");
+    EMPTY(""),
+    INIT("00"),
+    NORMAL("01"),
+    DELETED("99");
 
     private String code;
 
@@ -12,7 +17,14 @@ public enum UserStatus {
         return code;
     }
 
-    private UserStatus(String code){
+    UserStatus(String code){
         this.code = code;
+    }
+
+    public static UserStatus get(String code){
+        return Arrays.stream(UserStatus.values())
+                .filter(u -> u.code.equalsIgnoreCase(code))
+                .findFirst()
+                .orElse(UserStatus.EMPTY);
     }
 }

@@ -9,8 +9,6 @@ import lombok.Data;
 @Data
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ResultObject {
-    private static final  String RESULT_OK = "OK";
-
     private String code;
     private String error;
     private Object result;
@@ -22,11 +20,15 @@ public class ResultObject {
     }
 
     public static ResultObject ok(){
-        return new ResultObject(ResultObject.RESULT_OK, null, null);
+        return new ResultObject(ResultType.OK.getCode(), null, null);
     }
 
     public static ResultObject ok(Object r){
-        return new ResultObject(ResultObject.RESULT_OK, null, r);
+        return new ResultObject(ResultType.OK.getCode(), null, r);
+    }
+
+    public static ResultObject fail(ResultType  type){
+        return fail(type.getCode(), null);
     }
 
     public static ResultObject fail(String code){

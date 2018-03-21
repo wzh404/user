@@ -7,7 +7,7 @@ import lombok.Data;
  * Created by @author wangzunhui on 2018/3/13.
  */
 @Data
-public class User extends Create{
+public class User extends Creator {
     private Integer id;
     private Integer orgID;
     private String name;
@@ -22,10 +22,14 @@ public class User extends Create{
     private String status;
 
     public UserStatus status(){
-        return UserStatus.valueOf(this.status);
+        return UserStatus.get(this.status);
     }
 
-    public boolean isDeleted(){
+    public boolean normal(){
+        return this.status() == UserStatus.NORMAL;
+    }
+
+    public boolean deleted(){
         return "T".equalsIgnoreCase(this.getDeleteFlag());
     }
 }

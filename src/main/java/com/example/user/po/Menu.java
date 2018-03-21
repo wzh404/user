@@ -1,16 +1,17 @@
 package com.example.user.po;
 
 import com.example.user.common.MenuType;
+import com.example.user.common.Tree;
 import lombok.Data;
 
 /**
  * Created by @author wangzunhui on 2018/3/15.
  */
 @Data
-public class Menu extends Create{
+public class Menu extends Creator implements Tree.Comparable{
     private Integer id;
-    private String name;
     private Integer pid;
+    private String name;
     private String url;
     private String icon;
     private String mtype;

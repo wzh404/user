@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.example.user.dao.MenuMapper" >
+    <resultMap id="menu" type="com.example.user.po.Menu" >
+
+    </resultMap>
     <insert id="insert" parameterType="com.example.user.po.Menu" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO sys_menu(
             name,
@@ -18,6 +21,7 @@
             #{pid},
             #{url},
             #{icon},
+            #{code},
             #{mtype},
             #{createBy},
             #{createTime},
@@ -26,5 +30,35 @@
         )
     </insert>
 
+    <select id="get" resultMap="menu" parameterType="int">
+        SELECT * FROM sys_menu
+        WHERE
+          id = #{id}
+    </select>
 
+    <select id="findByPage" resultMap="menu" parameterType="int">
+        SELECT * FROM sys_menu
+        WHERE
+            pid = #{pid}
+    </select>
+
+    <update id="delete">
+        UPDATE sys_menu
+        SET
+          del_flag = 'T'
+        WHERE
+          id = #{id}
+    </update>
+
+    <update id="update" parameterType="com.example.user.po.Menu">
+        UPDATE sys_menu
+        SET
+          name = #{name},
+          url = #{url},
+          icon = #{icon},
+          pid = #{pid},
+          mtype = #{mtype}
+        WHERE
+          id = #{id}
+    </update>
 </mapper>

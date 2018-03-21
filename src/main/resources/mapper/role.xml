@@ -16,4 +16,26 @@
             #{remarks}
         )
     </insert>
+
+    <insert id="addRoleMenus">
+        INSERT INTO sys_role_menu(role_id, menu_id)
+        VALUES
+        <foreach collection="menus" item="item" index="index" separator="," >
+            (#{role_id}, #{item})
+        </foreach>
+    </insert>
+
+    <update id="delete">
+        UPDATE sys_role
+        SET del_flag = 'T'
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="update" parameterType="com.example.user.po.Role">
+        UPDATE sys_role
+        SET name = #{name}
+        WHERE
+            id = #{id}
+    </update>
 </mapper>
